@@ -39,7 +39,7 @@ namespace RMP.Measurements.Infra.Data.Configurations.Entities
 
             builder
                 .Property(b => b.AssetId)
-                .HasColumnType("rt_asset_id")
+                .HasColumnName("rt_asset_id")
                 .IsRequired();
 
           
@@ -47,20 +47,20 @@ namespace RMP.Measurements.Infra.Data.Configurations.Entities
 
             builder
                 .Property(b => b.MeasurementCategoryTypeId)
-                .HasColumnType("re_measurementcategorytotype_id")
+                .HasColumnName("re_measurementcategorytotype_id")
                 .IsRequired();
 
             builder.HasOne(b => b.MeasurementCategoryType);
 
             builder
                 .Property(b => b.UomId)
-                .HasColumnType("cl_uom_id");
+                .HasColumnName("cl_uom_id");
 
             builder.HasOne(b => b.Uom);
 
             builder
                 .Property(b => b.DataTypeId)
-                .HasColumnType("cl_datatype_id")
+                .HasColumnName("cl_datatype_id")
                 .IsRequired();
 
             builder.HasOne(b => b.DataType);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RMP.Measurements.Infra.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -251,7 +251,7 @@ namespace RMP.Measurements.Infra.Migrations
                 {
                     rt_template_id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    AssetId = table.Column<Guid>(type: "rt_asset_id", nullable: false),
+                    rt_asset_id = table.Column<Guid>(type: "uuid", nullable: false),
                     cl_assettype_id = table.Column<Guid>(type: "uuid", nullable: false),
                     deleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     transaction_id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -268,8 +268,8 @@ namespace RMP.Measurements.Infra.Migrations
                         principalColumn: "cl_assettype_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_rt_template_rt_asset_AssetId",
-                        column: x => x.AssetId,
+                        name: "FK_rt_template_rt_asset_rt_asset_id",
+                        column: x => x.rt_asset_id,
                         principalTable: "rt_asset",
                         principalColumn: "rt_asset_id",
                         onDelete: ReferentialAction.Cascade);
@@ -284,10 +284,10 @@ namespace RMP.Measurements.Infra.Migrations
                     value = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     manualmeasurement = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     newormodified = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    AssetId = table.Column<Guid>(type: "rt_asset_id", nullable: false),
-                    MeasurementCategoryTypeId = table.Column<Guid>(type: "re_measurementcategorytotype_id", nullable: false),
-                    UomId = table.Column<Guid>(type: "cl_uom_id", nullable: true),
-                    DataTypeId = table.Column<Guid>(type: "cl_datatype_id", nullable: false),
+                    rt_asset_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    re_measurementcategorytotype_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    cl_uom_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    cl_datatype_id = table.Column<Guid>(type: "uuid", nullable: false),
                     deleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     transaction_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -297,26 +297,26 @@ namespace RMP.Measurements.Infra.Migrations
                 {
                     table.PrimaryKey("PK_rt_assetmeasurement", x => x.rt_assetmeasurement_id);
                     table.ForeignKey(
-                        name: "FK_rt_assetmeasurement_cl_datatype_DataTypeId",
-                        column: x => x.DataTypeId,
+                        name: "FK_rt_assetmeasurement_cl_datatype_cl_datatype_id",
+                        column: x => x.cl_datatype_id,
                         principalTable: "cl_datatype",
                         principalColumn: "cl_datatype_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_rt_assetmeasurement_cl_uom_UomId",
-                        column: x => x.UomId,
+                        name: "FK_rt_assetmeasurement_cl_uom_cl_uom_id",
+                        column: x => x.cl_uom_id,
                         principalTable: "cl_uom",
                         principalColumn: "cl_uom_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_rt_assetmeasurement_re_measurementcategorytotype_Measuremen~",
-                        column: x => x.MeasurementCategoryTypeId,
+                        name: "FK_rt_assetmeasurement_re_measurementcategorytotype_re_measure~",
+                        column: x => x.re_measurementcategorytotype_id,
                         principalTable: "re_measurementcategorytotype",
                         principalColumn: "re_measurementcategorytotype_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_rt_assetmeasurement_rt_asset_AssetId",
-                        column: x => x.AssetId,
+                        name: "FK_rt_assetmeasurement_rt_asset_rt_asset_id",
+                        column: x => x.rt_asset_id,
                         principalTable: "rt_asset",
                         principalColumn: "rt_asset_id",
                         onDelete: ReferentialAction.Cascade);
@@ -327,7 +327,7 @@ namespace RMP.Measurements.Infra.Migrations
                 columns: table => new
                 {
                     re_templatevariable_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TemplateId = table.Column<Guid>(type: "rt_template_id", nullable: false),
+                    rt_template_id = table.Column<Guid>(type: "uuid", nullable: false),
                     re_measurementcategorytotype = table.Column<Guid>(type: "uuid", nullable: false),
                     cl_uom_id = table.Column<Guid>(type: "uuid", nullable: false),
                     cl_datatype_id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -360,8 +360,8 @@ namespace RMP.Measurements.Infra.Migrations
                         principalColumn: "re_measurementcategorytotype_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_re_templatevariable_rt_template_TemplateId",
-                        column: x => x.TemplateId,
+                        name: "FK_re_templatevariable_rt_template_rt_template_id",
+                        column: x => x.rt_template_id,
                         principalTable: "rt_template",
                         principalColumn: "rt_template_id",
                         onDelete: ReferentialAction.Cascade);
@@ -455,9 +455,9 @@ namespace RMP.Measurements.Infra.Migrations
                 column: "re_measurementcategorytotype");
 
             migrationBuilder.CreateIndex(
-                name: "IX_re_templatevariable_TemplateId",
+                name: "IX_re_templatevariable_rt_template_id",
                 table: "re_templatevariable",
-                column: "TemplateId");
+                column: "rt_template_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_rt_asset_cl_assettype_id",
@@ -475,34 +475,34 @@ namespace RMP.Measurements.Infra.Migrations
                 column: "parent_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rt_assetmeasurement_AssetId",
+                name: "IX_rt_assetmeasurement_cl_datatype_id",
                 table: "rt_assetmeasurement",
-                column: "AssetId");
+                column: "cl_datatype_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rt_assetmeasurement_DataTypeId",
+                name: "IX_rt_assetmeasurement_cl_uom_id",
                 table: "rt_assetmeasurement",
-                column: "DataTypeId");
+                column: "cl_uom_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rt_assetmeasurement_MeasurementCategoryTypeId",
+                name: "IX_rt_assetmeasurement_re_measurementcategorytotype_id",
                 table: "rt_assetmeasurement",
-                column: "MeasurementCategoryTypeId");
+                column: "re_measurementcategorytotype_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rt_assetmeasurement_UomId",
+                name: "IX_rt_assetmeasurement_rt_asset_id",
                 table: "rt_assetmeasurement",
-                column: "UomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_rt_template_AssetId",
-                table: "rt_template",
-                column: "AssetId");
+                column: "rt_asset_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_rt_template_cl_assettype_id",
                 table: "rt_template",
                 column: "cl_assettype_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_rt_template_rt_asset_id",
+                table: "rt_template",
+                column: "rt_asset_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

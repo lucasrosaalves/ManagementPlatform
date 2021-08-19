@@ -1,21 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using RMP.Measurements.Domain.CodeList;
 using RMP.Measurements.Domain.Entities;
-using System;
 
 namespace RMP.Measurements.Infra.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
-        {
-
-        }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         //Entities
@@ -40,14 +35,6 @@ namespace RMP.Measurements.Infra.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            builder
-                .UseNpgsql()
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging();
         }
     }
 }

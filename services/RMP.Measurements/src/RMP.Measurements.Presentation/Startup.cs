@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RMP.Measurements.Infra.Data;
+using System;
 
 namespace RMP.Measurements.Presentation
 {
@@ -31,7 +33,14 @@ namespace RMP.Measurements.Presentation
             services.AddDbContext<ApplicationDbContext>(builder =>
             {
                 builder
-                .UseNpgsql(Configuration.GetConnectionString("MeasurementsDb"));
+                .UseNpgsql(Configuration.GetConnectionString("MeasurementsDb"))
+                .LogTo(Console.WriteLine, LogLevel.Information);
+                
+                #if DEBUG
+
+                builder.EnableSensitiveDataLogging();
+
+                #endif
             });
         }
 

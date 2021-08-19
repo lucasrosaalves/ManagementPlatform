@@ -13,7 +13,7 @@ namespace RMP.Measurements.Infra.Data.Configurations.Entities
 
             builder
                 .Property(b => b.AssetId)
-                .HasColumnType("rt_asset_id")
+                .HasColumnName("rt_asset_id")
                 .IsRequired();
 
             builder.HasOne(b => b.Asset);

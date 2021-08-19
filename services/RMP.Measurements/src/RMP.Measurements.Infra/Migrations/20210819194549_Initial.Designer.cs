@@ -10,8 +10,8 @@ using RMP.Measurements.Infra.Data;
 namespace RMP.Measurements.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210819190012_InitialModel")]
-    partial class InitialModel
+    [Migration("20210819194549_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -474,14 +474,16 @@ namespace RMP.Measurements.Infra.Migrations
                         .HasColumnName("rt_assetmeasurement_id");
 
                     b.Property<Guid>("AssetId")
-                        .HasColumnType("rt_asset_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("rt_asset_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<Guid>("DataTypeId")
-                        .HasColumnType("cl_datatype_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("cl_datatype_id");
 
                     b.Property<bool>("Deleted")
                         .ValueGeneratedOnAdd()
@@ -496,7 +498,8 @@ namespace RMP.Measurements.Infra.Migrations
                         .HasColumnName("manualmeasurement");
 
                     b.Property<Guid>("MeasurementCategoryTypeId")
-                        .HasColumnType("re_measurementcategorytotype_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("re_measurementcategorytotype_id");
 
                     b.Property<bool>("NewOrModified")
                         .ValueGeneratedOnAdd()
@@ -513,7 +516,8 @@ namespace RMP.Measurements.Infra.Migrations
                         .HasColumnName("transaction_id");
 
                     b.Property<Guid?>("UomId")
-                        .HasColumnType("cl_uom_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("cl_uom_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -612,7 +616,8 @@ namespace RMP.Measurements.Infra.Migrations
                         .HasColumnName("rt_template_id");
 
                     b.Property<Guid>("AssetId")
-                        .HasColumnType("rt_asset_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("rt_asset_id");
 
                     b.Property<Guid>("AssetTypeId")
                         .HasColumnType("uuid")
@@ -686,7 +691,8 @@ namespace RMP.Measurements.Infra.Migrations
                         .HasColumnName("required");
 
                     b.Property<Guid>("TemplateId")
-                        .HasColumnType("rt_template_id");
+                        .HasColumnType("uuid")
+                        .HasColumnName("rt_template_id");
 
                     b.Property<Guid>("TransactionId")
                         .HasColumnType("uuid")
