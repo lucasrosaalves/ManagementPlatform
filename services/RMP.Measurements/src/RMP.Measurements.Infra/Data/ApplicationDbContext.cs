@@ -8,6 +8,16 @@ namespace RMP.Measurements.Infra.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext()
+        {
+
+        }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         //Entities
         public DbSet<Asset> Assets { get; set; }
         public DbSet<AssetHierarchy> AssetHierarchies { get; set; }

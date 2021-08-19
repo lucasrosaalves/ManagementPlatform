@@ -10,7 +10,7 @@ using RMP.Measurements.Infra.Data;
 namespace RMP.Measurements.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210819181045_InitialModel")]
+    [Migration("20210819190012_InitialModel")]
     partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -28,9 +28,10 @@ namespace RMP.Measurements.Presentation
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RMP.Measurements.Presentation", Version = "v1" });
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(builder =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("MeasurementsDb"));
+                builder
+                .UseNpgsql(Configuration.GetConnectionString("MeasurementsDb"));
             });
         }
 
