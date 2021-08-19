@@ -1,0 +1,5 @@
+--Add migration
+dotnet ef --startup-project src/RMP.Measurements.Infra/ migrations add InitialModel --verbose
+
+--Update database
+dotnet ef --startup-project src/RMP.Measurements.Infra/ database update --verbose
